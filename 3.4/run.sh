@@ -15,6 +15,10 @@ if [ "$OPLOG_SIZE" != "" ]; then
     cmd="$cmd --oplogSize $OPLOG_SIZE"
 fi
 
+if [ "$CACHE_SIZE_GB" != "" ]; then
+    cmd="$cmd --wiredTigerCacheSizeGB $CACHE_SIZE_GB"
+fi
+
 $cmd &
 
 if [ ! -f /data/db/.mongodb_password_set ]; then
