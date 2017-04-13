@@ -2,7 +2,14 @@
 set -m
 
 mongodb_cmd="mongod --storageEngine $STORAGE_ENGINE"
-cmd="$mongodb_cmd --httpinterface --rest --master"
+cmd="$mongodb_cmd --httpinterface --rest"
+
+if [ -z "$REPLICA_SET" ]; then
+    cmd="$cmd --master"
+else
+    cmd="$cmd --replSet '$REPLICA_SET'"
+fi
+
 if [ "$AUTH" == "yes" ]; then
     cmd="$cmd --auth"
 fi
